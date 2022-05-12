@@ -1,0 +1,16 @@
+<div class="container">
+  <mat-card>
+    <div
+      class="pharase"
+      *ngFor="let pharase of article"
+      (click)="onPlayPharase(pharase.time)"
+    >
+      <div class="pharase-en">
+        {{ pharase.en }}
+      </div>
+      <div class="pharase-ja">
+        {{ pharase.ja }}
+      </div>
+    </div>
+  </mat-card>
+</div>

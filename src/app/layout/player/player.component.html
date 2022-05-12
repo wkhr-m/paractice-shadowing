@@ -1,0 +1,20 @@
+<div class="player">
+  <button mat-icon-button class="action">
+    <fa-icon size="lg" [icon]="faMicrophoneIcon"></fa-icon>
+  </button>
+  <button mat-icon-button class="action">
+    <fa-icon size="lg" [icon]="faEarListenIcon"></fa-icon>
+  </button>
+  <button mat-icon-button class="play" (click)="onPlay()">
+    <fa-icon size="1x" [icon]="isPlaying ? faPauseIcon : faPlayIcon"></fa-icon>
+  </button>
+  <button mat-icon-button class="action" (click)="onChangeRate()">
+    <mat-icon>x {{ RATE[currentRateIndex] }}</mat-icon>
+  </button>
+  <button mat-icon-button class="action" (click)="onChangeRepeat()">
+    <fa-icon
+      size="lg"
+      [icon]="isRepeat ? faRepeatIcon : faArrowRightIcon"
+    ></fa-icon>
+  </button>
+</div>
