@@ -8,3 +8,17 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+#dialog {
+  min-width: 500px;
+  width: 800px;
+  @media screen and (max-width: 767px) {
+    min-width: auto;
+    width: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 40px;
+    overflow-y: scroll;
+  }
+}

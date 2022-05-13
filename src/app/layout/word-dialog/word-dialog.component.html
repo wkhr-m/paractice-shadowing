@@ -1,0 +1,58 @@
+<div class="header">
+  <h2 mat-dialog-title class="title">
+    {{ word }}
+    <button mat-icon-button (click)="onPlayWord()">
+      <fa-icon size="lg" [icon]="faVolumeHighIcon"></fa-icon>
+    </button>
+  </h2>
+  <button mat-icon-button (click)="onClose()">
+    <fa-icon size="lg" [icon]="faXmarkIcon"></fa-icon>
+  </button>
+</div>
+<mat-dialog-content>
+  <ng-template #isError>
+    <div class="error">
+      <div class="icon">😩</div>
+      <div>Sorry, I can't get informaiton.</div>
+    </div>
+  </ng-template>
+
+  <ng-container *ngIf="isError; else isError">
+    <ng-template #loading>
+      <ngx-skeleton-loader count="5" appearance="line"></ngx-skeleton-loader>
+    </ng-template>
+
+    <ng-container *ngIf="isLoaded; else loading">
+      <div class="item">
+        <span class="label">音節</span>
+        <span
+          *ngFor="let item of information?.syllables?.list; let last = last"
+        >
+          {{ item }}
+          {{ last ? "" : "・" }}</span
+        >
+      </div>
+      <div class="item">
+        <span class="label">発音記号</span>
+        <span
+          >/
+          {{ information?.pronunciation?.all || information?.pronunciation }}
+          /</span
+        >
+      </div>
+      <div class="item">
+        <span class="label">意味</span>
+        <ul class="mean">
+          <li *ngFor="let item of information?.results">
+            {{ item.definition }}
+            <ol class="example">
+              <li *ngFor="let example of item.examples">
+                {{ example }}
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </ng-container>
+</mat-dialog-content>

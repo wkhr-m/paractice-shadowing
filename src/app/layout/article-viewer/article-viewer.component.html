@@ -2,11 +2,17 @@
   <mat-card>
     <div
       class="pharase"
-      *ngFor="let pharase of article"
+      *ngFor="let pharase of article; index as i"
       (click)="onPlayPharase(pharase.time)"
     >
       <div class="pharase-en">
-        {{ pharase.en }}
+        <span
+          class="word"
+          *ngFor="let word of englishPharases[i]"
+          (dblclick)="onOpenWordDialog(word, $event)"
+        >
+          {{ word }}
+        </span>
       </div>
       <div class="pharase-ja">
         {{ pharase.ja }}

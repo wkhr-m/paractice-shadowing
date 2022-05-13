@@ -3,6 +3,7 @@
   <app-article-viewer
     [article]="currentArticle?.pharases"
     (playPharase)="onPlayPharase($event)"
+    (stopPharase)="onPlayOrStop()"
   ></app-article-viewer>
   <app-player
     [isPlaying]="isPlaying"

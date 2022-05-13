@@ -32,10 +32,14 @@ export class AppComponent {
     });
   }
 
+  onStopPharase() {
+    this.audioNode?.stop();
+    this.isPlaying = false;
+  }
+
   onPlayOrStop() {
     if (this.isPlaying) {
-      this.audioNode?.stop();
-      this.isPlaying = false;
+      this.onStopPharase();
       return;
     }
     this.audioStart();
