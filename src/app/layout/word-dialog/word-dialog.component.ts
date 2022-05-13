@@ -26,16 +26,16 @@ export class WordDialogComponent {
     private wordSevice: WordService
   ) {
     this.word = data.word.replace(/[^a-zA-Z]/g, '');
-    this.wordSevice.getWordInformation(this.word).subscribe(
-      (res) => {
+    this.wordSevice.getWordInformation(this.word).subscribe({
+      next: (res) => {
         this.information = res;
         this.isLoaded = true;
       },
-      (error: any) => {
+      error: (error: any) => {
         console.warn(error);
         this.isError = true;
-      }
-    );
+      },
+    });
     dialogRef.disableClose = false;
   }
 
