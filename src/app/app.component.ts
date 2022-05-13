@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as Tone from 'tone';
 import type {
   ArticleContents,
   ArticlePhraseTime,
@@ -15,7 +16,7 @@ export class AppComponent {
   currentArticle?: ArticleContents;
   isPlaying: boolean = false;
   rate: number = 1;
-  private audioNode?: AudioBufferSourceNode;
+  private player?: Tone.Player;
   private buffer?: AudioBuffer;
 
   constructor(
@@ -33,7 +34,7 @@ export class AppComponent {
   }
 
   onStopPharase() {
-    this.audioNode?.stop();
+    this.player?.stop();
     this.isPlaying = false;
   }
 
@@ -53,26 +54,39 @@ export class AppComponent {
   private audioStart(time?: ArticlePhraseTime) {
     // 現在再生中だったら止める
     if (this.isPlaying) {
-      this.audioNode?.stop();
+      this.onStopPharase();
     }
     this.isPlaying = true;
     if (this.buffer) {
-      const source = this.audioService.ctx.createBufferSource();
-      source.buffer = this.buffer;
-      source.detune.value = -100;
-      source.connect(this.audioService.ctx.destination);
-      this.audioNode = source;
+      const player = new Tone.Player(this.buffer).toDestination();
+
+      if (this.rate !== 1) {
+        this.changePlayerRate(this.rate, player);
+      }
 
       if (time) {
-        source.start(0, time.start / 1000, (time.end - time.start) / 1000);
+        player.start(0, time.start / 1000, (time.end - time.start) / 1000);
         setTimeout(() => (this.isPlaying = false), time.end - time.start);
       } else {
-        source.start(0);
+        player.start(0);
       }
+      this.player = player;
     }
+  }
+
+  private changePlayerRate(rate: number, player: Tone.Player) {
+    player.playbackRate = rate;
+    const pitch_shift = new Tone.PitchShift({
+      pitch: rate === 1 ? 0 : rate === 0.5 ? 12 : 6,
+    }).toDestination();
+    player?.disconnect();
+    player?.connect(pitch_shift);
   }
 
   onChangeRate(rate: number) {
     this.rate = rate;
+    if (this.player) {
+      this.changePlayerRate(rate, this.player);
+    }
   }
 }
