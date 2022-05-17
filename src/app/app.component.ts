@@ -27,9 +27,13 @@ export class AppComponent {
   ngOnInit(): void {
     this.articleService.articleContents.subscribe(async (article) => {
       this.currentArticle = article;
-      this.buffer = await this.audioService.fetchAudio(
-        this.currentArticle?.fileName
-      );
+      if (this.currentArticle?.fileName) {
+        this.buffer = await this.audioService.fetchAudio(
+          this.currentArticle?.fileName
+        );
+      } else {
+        this.buffer = undefined;
+      }
     });
   }
 
