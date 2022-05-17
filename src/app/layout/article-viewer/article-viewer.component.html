@@ -5,7 +5,7 @@
       *ngFor="let pharase of article; index as i"
       (click)="onPlayPharase(pharase.time)"
     >
-      <div class="pharase-en">
+      <div class="pharase">
         <span
           class="word"
           *ngFor="let word of englishPharases[i]"
@@ -14,7 +14,10 @@
           {{ word }}
         </span>
       </div>
-      <div class="pharase-ja">
+      <div class="pharase-sub" *ngIf="pharase.pronaunce">
+        {{ pharase.pronaunce }}
+      </div>
+      <div class="pharase-sub">
         {{ pharase.ja }}
       </div>
     </div>
