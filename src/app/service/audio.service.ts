@@ -8,8 +8,8 @@ export class AudioService {
 
   constructor() {}
 
-  async fetchAudio(url: string) {
-    const response = await fetch(`assets/${url}`);
+  async fetchAudio(path: string) {
+    const response = await fetch(`assets/${path}/audio.mp3`);
     const arrayBuffer = await response.arrayBuffer();
     const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
     return audioBuffer;

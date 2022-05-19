@@ -1,11 +1,22 @@
 <main class="mat-app-background">
-  <app-header [title]="currentArticle?.title"></app-header>
-  <app-article-viewer
-    [article]="currentArticle?.pharases"
-    (playPharase)="onPlayPharase($event)"
-    (stopPharase)="onPlayOrStop()"
-  ></app-article-viewer>
+  <app-header
+    [title]="title"
+    [needBackButton]="!currentDocument || currentDocument.id !== 'index'"
+  ></app-header>
+  <ng-container *ngIf="!!currentArticle; else document">
+    <app-article-viewer
+      [article]="currentArticle?.pharases"
+      (playPharase)="onPlayPharase($event)"
+      (stopPharase)="onPlayOrStop()"
+    ></app-article-viewer>
+  </ng-container>
+
+  <ng-template #document>
+    <div [innerHTML]="currentDocument?.contents">かもすぞー</div>
+  </ng-template>
+
   <app-player
+    *ngIf="currentArticle"
     [isPlaying]="isPlaying"
     (play)="onPlayOrStop()"
     (changeRate)="onChangeRate($event)"

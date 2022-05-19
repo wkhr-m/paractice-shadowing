@@ -5,9 +5,9 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
   template: `<header>
     <mat-toolbar>
       <mat-toolbar-row>
-        <button mat-icon-button>
+        <a href="/" mat-icon-button *ngIf="needBackButton">
           <fa-icon [icon]="faArrowLeftIcon"></fa-icon>
-        </button>
+        </a>
         <span>{{ title || 'Practice Shadowing' }}</span>
       </mat-toolbar-row>
     </mat-toolbar>
@@ -16,6 +16,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 })
 export class HeaderComponent implements OnInit {
   @Input() title?: string;
+  @Input() needBackButton: boolean = false;
   faArrowLeftIcon = faArrowLeft;
 
   constructor() {}

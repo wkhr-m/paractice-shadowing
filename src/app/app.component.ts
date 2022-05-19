@@ -3,7 +3,10 @@ import * as Tone from 'tone';
 import type {
   ArticleContents,
   ArticlePhraseTime,
+  Content,
+  DocumentContents,
 } from './service/article-contents';
+import { isArticle } from './service/article-contents';
 import { ArticleService } from './service/article.service';
 import { AudioService } from './service/audio.service';
 
@@ -13,7 +16,9 @@ import { AudioService } from './service/audio.service';
   styleUrls: ['./app.component.less'],
 })
 export class AppComponent {
+  currentDocument?: DocumentContents;
   currentArticle?: ArticleContents;
+  title: string = '';
   isPlaying: boolean = false;
   rate: number = 1;
   private player?: Tone.Player;
@@ -25,21 +30,24 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    this.articleService.articleContents.subscribe(async (article) => {
-      this.currentArticle = article;
-      if (this.currentArticle?.fileName) {
-        this.buffer = await this.audioService.fetchAudio(
-          this.currentArticle?.fileName
-        );
+    this.articleService.content.subscribe(async (content: Content) => {
+      console.log(content);
+      this.title = content.title;
+      if (isArticle(content)) {
+        this.currentArticle = content;
+        this.currentDocument = undefined;
+        this.buffer = await this.audioService.fetchAudio(content.id);
       } else {
+        this.currentArticle = undefined;
+        this.currentDocument = content;
         this.buffer = undefined;
       }
     });
   }
 
   onStopPharase() {
-    this.player?.stop();
     this.isPlaying = false;
+    this.player?.stop();
   }
 
   onPlayOrStop() {
