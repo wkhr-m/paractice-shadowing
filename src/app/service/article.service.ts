@@ -9,24 +9,14 @@ import {
   DocumentContents,
 } from './article-contents';
 
-const FETCHING_ERROR_CONTENTS = (path: string): TrustedHTML =>
+const FETCHING_ERROR_CONTENTS = (): TrustedHTML =>
   htmlFromStringKnownToSatisfyTypeContract(
     `
-  <div >
+  <div class="api-body">
     <h1>PAGE NOT FOUND</h1>
     <div>
     We're sorry. The page you are looking for cannot be found.
     </div>
-  </div>
-`,
-    'inline HTML with interpolations escaped'
-  );
-
-const INDEX_CONTENTS = (): TrustedHTML =>
-  htmlFromStringKnownToSatisfyTypeContract(
-    `
-  <div class="nf-container l-flex-wrap flex-center">
-    Index
   </div>
 `,
     'inline HTML with interpolations escaped'
@@ -45,7 +35,7 @@ export class ArticleService {
 
   private getDocument(path: string) {
     if (!path || path === '/') {
-      return this.getIndex();
+      return this.fetchIndex();
     }
     return this.fetchArticle(`assets/${path}/content.json`);
   }
@@ -64,13 +54,8 @@ export class ArticleService {
     );
   }
 
-  private getIndex(): Observable<DocumentContents> {
-    return of({
-      id: 'index',
-      title: 'Plactice Shadowing',
-      type: CONTENT_TYPE_DOCUMENT,
-      contents: INDEX_CONTENTS(),
-    });
+  private fetchIndex(): Observable<Content> {
+    return this.http.get<DocumentContents>(`assets/index.json`);
   }
 
   private getErrorDoc(id: string): Observable<DocumentContents> {
@@ -78,7 +63,7 @@ export class ArticleService {
       id: id,
       title: 'oops',
       type: CONTENT_TYPE_DOCUMENT,
-      contents: FETCHING_ERROR_CONTENTS(id),
+      contents: FETCHING_ERROR_CONTENTS(),
     });
   }
 }

@@ -35,7 +35,6 @@ export class AppComponent {
       this.title = content.title;
       if (isArticle(content)) {
         this.currentArticle = content;
-        this.currentDocument = undefined;
         this.buffer = await this.audioService.fetchAudio(content.id);
       } else {
         this.currentArticle = undefined;
