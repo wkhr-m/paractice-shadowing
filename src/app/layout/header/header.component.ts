@@ -8,11 +8,12 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
         <a href="/" mat-icon-button *ngIf="needBackButton">
           <fa-icon [icon]="faArrowLeftIcon"></fa-icon>
         </a>
-        <span>{{ title || 'Practice Shadowing' }}</span>
+        <span class="title">{{ title || 'Practice Shadowing' }}</span>
       </mat-toolbar-row>
     </mat-toolbar>
   </header>`,
   selector: 'app-header',
+  styleUrls: ['./header.less'],
 })
 export class HeaderComponent implements OnInit {
   @Input() title?: string;
