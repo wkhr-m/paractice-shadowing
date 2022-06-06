@@ -1,18 +1,36 @@
 # PracticeShadowing
 
-個人利用目的でシャドーイングの練習を助けるウェブアプリケーション。
+シャドーイングの練習を助けるウェブアプリケーション。
 
 ## 使用しているWEB API
 - [Words API](https://rapidapi.com/dpventures/api/wordsapi)
 上記のウェブサイトで登録をして/src/environments下の各xRapidApiKeyを書き直す必要がある。
 これをやらないと単語の内容が見れない。
 
-## メモ
-MediaStream Recording API 録音
-https://gist.github.com/ykst/6e80e3566bd6b9d63d19
-https://blog.o2p.jp/2014/06/18/trap-web-audio-api/
-https://stackoverflow.com/questions/59606613/how-to-change-pitch-and-playback-rate-with-javascript-tone-js
-https://weblike-curtaincall.ssl-lolipop.jp/portfolio-web-sounder/
+## 使い方
+1. 記事をセットする
+src/assets下にcontent.json(記事の内容)とaudio.mp3(記事の音声ファイル)をセットする。
+content.json
+```json
+{
+  "type": "article",
+  "id": "the-best-gift-i-ever-survived",
+  "title": "The best gift I ever survived",
+  "url": "https://example.com",
+  "pharases": [
+    {
+      "en": "It will recalibrate what's most important in your life.",
+      "ja": "人生で最も重要なことを再確認させてくれます",
+      "pronaunce": "ɪt wɪl ˌriˈkæləˌbreɪt wʌts moʊst ɪmˈpɔrtənt ɪn jʊər laɪf.",
+      "time": { "start": 36000, "end": 39000 }
+    },
+  ]
+}
+```
 
-使用検討
-https://github.com/shaka-project/shaka-player
+2. navigation.jsonに追加する
+このときidは上のidと一致させる
+
+3. yarn setup
+
+4. yarn start
