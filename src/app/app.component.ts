@@ -33,7 +33,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.articleService.content.subscribe(async (content: Content) => {
-      console.log(content);
       this.title = content.title;
       if (isArticle(content)) {
         this.currentArticle = content;

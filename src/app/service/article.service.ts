@@ -52,7 +52,6 @@ export class ArticleService {
         }
       }),
       catchError((error: any) => {
-        console.log(error);
         return this.getErrorDoc(url);
       })
     );
