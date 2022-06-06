@@ -33,8 +33,6 @@ export class ArticleService {
     this.content = locationService.currentPath.pipe(
       switchMap((path) => this.getDocument(path))
     );
-    // const path = window.location.pathname.replace('/', '');
-    // this.content = this.getDocument(path);
   }
 
   private getDocument(path: string) {
