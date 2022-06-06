@@ -31,9 +31,9 @@ export class WordDialogComponent {
         this.information = res;
         this.isLoaded = true;
       },
-      error: (error: any) => {
-        console.warn(error);
+      error: () => {
         this.isError = true;
+        this.isLoaded = true;
       },
     });
     dialogRef.disableClose = false;

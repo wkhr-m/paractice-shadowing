@@ -10,19 +10,19 @@
   </button>
 </div>
 <mat-dialog-content>
-  <ng-template #isError>
-    <div class="error">
-      <div class="icon">😩</div>
-      <div>Sorry, I can't get informaiton.</div>
-    </div>
+  <ng-template #loading>
+    <ngx-skeleton-loader count="5" appearance="line"></ngx-skeleton-loader>
   </ng-template>
 
-  <ng-container *ngIf="isError; else isError">
-    <ng-template #loading>
-      <ngx-skeleton-loader count="5" appearance="line"></ngx-skeleton-loader>
+  <ng-container *ngIf="isLoaded; else loading">
+    <ng-template #error>
+      <div class="error">
+        <div class="icon">😩</div>
+        <div>Sorry, I can't get informaiton.</div>
+      </div>
     </ng-template>
 
-    <ng-container *ngIf="isLoaded; else loading">
+    <ng-container *ngIf="!isError; else error">
       <div class="item">
         <span class="label">音節</span>
         <span
