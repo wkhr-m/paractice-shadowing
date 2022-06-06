@@ -1,8 +1,5 @@
 <main class="mat-app-background">
-  <app-header
-    [title]="title"
-    [needBackButton]="!currentDocument || currentDocument.id !== 'index'"
-  ></app-header>
+  <app-header [title]="title" [needBackButton]="!!currentArticle"></app-header>
   <ng-container *ngIf="!!currentArticle; else document">
     <app-article-viewer
       [article]="currentArticle?.pharases"

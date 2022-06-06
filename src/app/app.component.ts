@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import * as Tone from 'tone';
 import type {
   ArticleContents,
@@ -9,6 +9,7 @@ import type {
 import { isArticle } from './service/article-contents';
 import { ArticleService } from './service/article.service';
 import { AudioService } from './service/audio.service';
+import { LocationService } from './service/location.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,8 @@ export class AppComponent {
 
   constructor(
     private articleService: ArticleService,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private locationService: LocationService
   ) {}
 
   ngOnInit(): void {
@@ -99,5 +101,39 @@ export class AppComponent {
     if (this.player) {
       this.changePlayerRate(rate, this.player);
     }
+  }
+
+  @HostListener('click', [
+    '$event.target',
+    '$event.button',
+    '$event.ctrlKey',
+    '$event.metaKey',
+    '$event.altKey',
+  ])
+  onClick(eventTarget: HTMLElement): boolean {
+    // Deal with anchor clicks; climb DOM tree until anchor found (or null)
+
+    // ヘッダーの中のAnchorエレメントならばイベントをバブリングさせる
+    let target: HTMLElement | null = eventTarget;
+    while (target && !(target.tagName === 'HEADER')) {
+      target = target.parentElement;
+    }
+    if (target && target.tagName === 'HEADER') {
+      this.locationService.go('/');
+      return false;
+    }
+
+    target = eventTarget;
+    while (target && !(target instanceof HTMLAnchorElement)) {
+      target = target.parentElement;
+    }
+    if (target instanceof HTMLAnchorElement) {
+      const sprited = target.href.split('/');
+      this.locationService.go(sprited[sprited.length - 1]);
+      return false;
+    }
+
+    // Allow the click to pass through
+    return true;
   }
 }

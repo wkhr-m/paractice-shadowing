@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { htmlFromStringKnownToSatisfyTypeContract } from 'safevalues/unsafe/reviewed';
 import {
   ArticleContents,
@@ -8,6 +8,7 @@ import {
   CONTENT_TYPE_DOCUMENT,
   DocumentContents,
 } from './article-contents';
+import { LocationService } from './location.service';
 
 const FETCHING_ERROR_CONTENTS = (): TrustedHTML =>
   htmlFromStringKnownToSatisfyTypeContract(
@@ -28,9 +29,12 @@ const FETCHING_ERROR_CONTENTS = (): TrustedHTML =>
 export class ArticleService {
   content: Observable<Content>;
 
-  constructor(private http: HttpClient) {
-    const path = window.location.pathname.replace('/', '');
-    this.content = this.getDocument(path);
+  constructor(private http: HttpClient, locationService: LocationService) {
+    this.content = locationService.currentPath.pipe(
+      switchMap((path) => this.getDocument(path))
+    );
+    // const path = window.location.pathname.replace('/', '');
+    // this.content = this.getDocument(path);
   }
 
   private getDocument(path: string) {
