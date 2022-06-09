@@ -4,9 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AudioService {
-  ctx: AudioContext = new AudioContext();
+  ctx: AudioContext;
 
-  constructor() {}
+  constructor() {
+    this.ctx = new AudioContext();
+  }
 
   async fetchAudio(path: string) {
     const response = await fetch(`assets/${path}/audio.mp3`);
