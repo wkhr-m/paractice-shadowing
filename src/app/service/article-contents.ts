@@ -11,6 +11,7 @@ export interface ArticleContents {
   title: string;
   url?: string;
   pharases: ArticlePhrase[];
+  haveAudio: boolean;
 }
 
 export interface ArticlePhrase {

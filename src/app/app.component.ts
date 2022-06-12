@@ -46,8 +46,11 @@ export class AppComponent {
   }
 
   onStopPharase() {
-    this.isPlaying = false;
     this.player?.stop();
+    setTimeout(() => {
+      this.player?.disconnect();
+      this.isPlaying = false;
+    }, 100);
   }
 
   onPlayOrStop() {
