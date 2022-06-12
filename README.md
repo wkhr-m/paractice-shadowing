@@ -34,3 +34,11 @@ content.json
 3. yarn setup
 
 4. yarn start
+
+## Android PWAのデバッグ方法
+androidでPWAとしてインストールする場合は[ngrok](https://ngrok.com/)を使う
+```
+ng build
+npx http-server -p 8080 -c-1 dist/practice-shadowing
+http://127.0.0.1:8080
+```
