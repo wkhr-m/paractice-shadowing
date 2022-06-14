@@ -3,6 +3,10 @@
   "id": "2-the-best-gift-i-ever-survived",
   "title": "[Part2] The best gift I ever survived",
   "haveAudio": true,
+  "audioTime": {
+    "start": 36000,
+    "end": 81000
+  },
   "url": "https://www.ted.com/talks/stacey_kramer_the_best_gift_i_ever_survived/transcript",
   "pharases": [
     {

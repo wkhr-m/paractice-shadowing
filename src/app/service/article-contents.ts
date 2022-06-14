@@ -12,6 +12,10 @@ export interface ArticleContents {
   url?: string;
   pharases: ArticlePhrase[];
   haveAudio: boolean;
+  audioTime: {
+    start: number;
+    end: number;
+  };
 }
 
 export interface ArticlePhrase {

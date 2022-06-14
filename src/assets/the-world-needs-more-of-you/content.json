@@ -3,6 +3,10 @@
   "id": "the-world-needs-more-of-you",
   "title": "The World Needs More Of You",
   "haveAudio": true,
+  "audioTime": {
+    "start": 0,
+    "end": 46000
+  },
   "url": "https://www.youtube.com/watch?v=4FDud9Lj5HY",
   "pharases": [
     {

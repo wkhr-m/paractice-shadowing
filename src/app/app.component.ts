@@ -83,7 +83,12 @@ export class AppComponent {
         player.start(0, time.start / 1000, (time.end - time.start) / 1000);
         setTimeout(() => (this.isPlaying = false), time.end - time.start);
       } else {
-        player.start(0);
+        const start = this.currentArticle?.audioTime.start || 0;
+        const end =
+          this.currentArticle?.audioTime.end === undefined
+            ? undefined
+            : this.currentArticle?.audioTime.end / 1000;
+        player.start(0, start / 1000, end);
       }
       this.player = player;
     }
