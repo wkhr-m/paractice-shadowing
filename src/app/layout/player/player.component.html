@@ -9,7 +9,7 @@
     <fa-icon size="1x" [icon]="isPlaying ? faPauseIcon : faPlayIcon"></fa-icon>
   </button>
   <button mat-icon-button class="action" (click)="onChangeRate()">
-    <mat-icon>x {{ RATE[currentRateIndex] }}</mat-icon>
+    x {{ RATE[currentRateIndex] }}
   </button>
   <button mat-icon-button class="action" (click)="onChangeRepeat()">
     <fa-icon
