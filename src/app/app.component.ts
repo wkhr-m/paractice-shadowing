@@ -87,7 +87,7 @@ export class AppComponent {
         const end =
           this.currentArticle?.audioTime.end === undefined
             ? undefined
-            : this.currentArticle?.audioTime.end / 1000;
+            : (this.currentArticle?.audioTime.end - start) / 1000;
         player.start(0, start / 1000, end);
       }
       this.player = player;
